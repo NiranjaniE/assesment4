@@ -1,6 +1,6 @@
 using System;
 
-namespace Forecast.Models
+namespace PersonProfile.Models
 {
     public class ErrorViewModel
     {

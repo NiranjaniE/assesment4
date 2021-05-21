@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PersonProfile.Models;
+using PersonProfile.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Forecast
+namespace PersonProfile
 {
     public class Startup
     {
@@ -22,7 +25,9 @@ namespace Forecast
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProfileContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ProCon"]));
             services.AddControllersWithViews();
+            services.AddScoped<IRepo<Profile>, ProfileManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
